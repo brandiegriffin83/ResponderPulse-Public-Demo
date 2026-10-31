@@ -253,25 +253,42 @@ RP_PAGES = ["🏠 Home / Your Profile", "💗 Wellness Check-In", "📊 My Resul
 if "rp_current_page" not in st.session_state:
     st.session_state["rp_current_page"] = RP_PAGES[0]
 
+# Keep both widgets synchronized before Streamlit redraws either control.
+if "rp_top_page" not in st.session_state:
+    st.session_state["rp_top_page"] = st.session_state["rp_current_page"]
+if "rp_sidebar_page" not in st.session_state:
+    st.session_state["rp_sidebar_page"] = st.session_state["rp_current_page"]
+
 def rp_choose_top_page():
-    st.session_state["rp_current_page"] = st.session_state["rp_top_page"]
+    chosen = st.session_state["rp_top_page"]
+    st.session_state["rp_current_page"] = chosen
+    st.session_state["rp_sidebar_page"] = chosen
 
 def rp_choose_sidebar_page():
-    st.session_state["rp_current_page"] = st.session_state["rp_sidebar_page"]
+    chosen = st.session_state["rp_sidebar_page"]
+    st.session_state["rp_current_page"] = chosen
+    st.session_state["rp_top_page"] = chosen
 
-st.markdown("### 🧭 Go to a ResponderPulse Page")
-st.selectbox(
-    "Choose a page", RP_PAGES,
-    index=RP_PAGES.index(st.session_state["rp_current_page"]),
-    key="rp_top_page", on_change=rp_choose_top_page,
-)
+# Desktop uses the original sidebar. Mobile uses this visible dropdown.
+st.markdown("""
+<style>
+@media (min-width: 901px) {
+    .st-key-rp_mobile_navigation {display:none!important;}
+}
+</style>
+""", unsafe_allow_html=True)
+with st.container(key="rp_mobile_navigation"):
+    st.markdown("### 🧭 Go to a ResponderPulse Page")
+    st.selectbox(
+        "Choose a page", RP_PAGES,
+        key="rp_top_page", on_change=rp_choose_top_page,
+    )
 
 with st.sidebar:
     st.markdown("### 💗 ResponderPulse")
     st.caption("First Responder Wellness")
     st.radio(
         "Navigate", RP_PAGES,
-        index=RP_PAGES.index(st.session_state["rp_current_page"]),
         key="rp_sidebar_page", on_change=rp_choose_sidebar_page,
         label_visibility="collapsed",
     )
@@ -933,5 +950,6 @@ if nav == "🎤 Presentation Demo":
     st.write("The interactive questions on this Demo page use the **local rule only**. They do not call the cloud API and do not save a CSV record.")
     st.write("This public test build uses the validated local wellness rule only; no check-in answers are sent to Google Colab or other external APIs.")
     st.warning("Use fictional examples only. The current prototype does not provide authentication, role-based access, or secure storage for real employee data.")
+
 
 
