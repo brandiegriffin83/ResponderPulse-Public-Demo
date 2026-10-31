@@ -248,13 +248,38 @@ if "rp_first_name" not in st.session_state:
 if "rp_welcome_dismissed" not in st.session_state:
     st.session_state["rp_welcome_dismissed"] = False
 
+# Visible navigation works on phones even when Streamlit's sidebar toggle is hidden.
+RP_PAGES = ["🏠 Home / Your Profile", "💗 Wellness Check-In", "📊 My Results", "🫧 Wellness Toolkit", "🔗 Support Resources", "👥 Coordinator Overview", "🎤 Presentation Demo"]
+if "rp_current_page" not in st.session_state:
+    st.session_state["rp_current_page"] = RP_PAGES[0]
+
+def rp_choose_top_page():
+    st.session_state["rp_current_page"] = st.session_state["rp_top_page"]
+
+def rp_choose_sidebar_page():
+    st.session_state["rp_current_page"] = st.session_state["rp_sidebar_page"]
+
+st.markdown("### 🧭 Go to a ResponderPulse Page")
+st.selectbox(
+    "Choose a page", RP_PAGES,
+    index=RP_PAGES.index(st.session_state["rp_current_page"]),
+    key="rp_top_page", on_change=rp_choose_top_page,
+)
+
 with st.sidebar:
     st.markdown("### 💗 ResponderPulse")
     st.caption("First Responder Wellness")
-    nav = st.radio("Navigate", ["🏠 Home / Your Profile", "💗 Wellness Check-In", "📊 My Results", "🫧 Wellness Toolkit", "🔗 Support Resources", "👥 Coordinator Overview", "🎤 Presentation Demo"], label_visibility="collapsed")
+    st.radio(
+        "Navigate", RP_PAGES,
+        index=RP_PAGES.index(st.session_state["rp_current_page"]),
+        key="rp_sidebar_page", on_change=rp_choose_sidebar_page,
+        label_visibility="collapsed",
+    )
     st.divider()
     st.caption("Healthy responders build stronger communities.")
     st.info("🚨 Emergency: 911\n\n📻 HCC Police Dispatch: 713-718-8888")
+
+nav = st.session_state["rp_current_page"]
 
 
 # Distinct page artwork, selected by both section and user-selected theme.
