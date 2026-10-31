@@ -22,7 +22,7 @@ FIELDS = ["date_time", "stress", "sleep", "energy", "workload", "mood",
           "supported", "prepared", "previous_shift", "outside_work", "trend_result"]
 
 st.set_page_config(page_title="ResponderPulse | Wellness Check-In",
-                   page_icon="💗", layout="wide", initial_sidebar_state="expanded")
+                   page_icon="💗", layout="wide", initial_sidebar_state="auto")
 st.markdown("""
 <style>
 :root { color-scheme: dark; }
@@ -141,7 +141,7 @@ st.markdown("### 🎨 Choose Your ResponderPulse Layout")
 theme_choice = st.radio(
     "Choose either of the two original designs",
     ["🛡️ Midnight Navy — Original First Responder Layout", "☁️ Sky Blue & Pink — Original Bright Layout"],
-    horizontal=True,
+    horizontal=False,
     key="rp_original_layout",
     label_visibility="collapsed",
 )
@@ -317,14 +317,16 @@ st.markdown(f"""<style>
  background-size:contain;background-position:center top;background-repeat:no-repeat;
  -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 23%);
  mask-image:linear-gradient(90deg,transparent 0%,black 23%);}}
-@media(max-width:700px) {{
- .rp-banner {{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);height:270px;min-height:270px;}}
- .rp-banner .rp-info {{padding:16px 8px 16px 16px;}}
- .rp-banner .rp-brand {{font-size:clamp(15px,3.5vw,25px);letter-spacing:-.055em;}}
- .rp-banner .rp-copy {{font-size:clamp(10px,2.1vw,13px);margin-top:10px;}}
- .rp-banner .rp-photo {{background-position:center top;}}
-}}
-</style>
+ @media(max-width:700px) {{
+  .rp-banner {{display:flex;flex-direction:column;height:auto;min-height:0;border-radius:20px;}}
+  .rp-banner .rp-info {{padding:18px 16px 14px;width:100%;}}
+  .rp-banner .rp-brand {{font-size:clamp(23px,6vw,32px);letter-spacing:-.04em;white-space:normal;overflow-wrap:anywhere;}}
+  .rp-banner .rp-copy {{font-size:13px;line-height:1.45;margin-top:9px;overflow-wrap:break-word;}}
+  .rp-banner .rp-photo {{height:190px;min-height:190px;width:100%;}}
+  .rp-banner .rp-photo::after {{background-position:center;background-size:contain;
+   -webkit-mask-image:linear-gradient(180deg,transparent 0%,black 18%);
+   mask-image:linear-gradient(180deg,transparent 0%,black 18%);}}
+ }}</style>
 <div class="rp-banner"><div class="rp-info">
 <div class="rp-brand">💗 Responder<b>Pulse</b></div>
 <div class="rp-copy">FIRST RESPONDER WELLNESS · Stay Safe. You Matter.</div>
@@ -332,6 +334,31 @@ st.markdown(f"""<style>
 <div class="rp-copy">STRONGER MINDS. SAFER COMMUNITIES.</div>
 </div><div class="rp-photo" role="img" aria-label="ResponderPulse section artwork"></div></div>""",unsafe_allow_html=True)
 st.caption("DEMONSTRATION ONLY • Fictional/synthetic check-ins. Not medical advice, crisis monitoring, or an employment decision tool.")
+
+# Mobile-only improvements: preserve the desktop layout and all seven page workflows.
+st.markdown("""<style>
+@media (max-width: 700px) {
+  html, body, [data-testid="stAppViewContainer"], .stApp {max-width:100%;overflow-x:hidden!important;}
+  .block-container, [data-testid="stMainBlockContainer"] {
+    max-width:100%!important;width:100%!important;
+    padding:3.7rem 12px 2rem!important;
+  }
+  [data-testid="stSidebar"] {max-width:min(88vw,340px)!important;}
+  [data-testid="stSidebar"] [data-testid="stRadio"] label {min-height:44px;}
+  .stApp h1 {font-size:1.55rem!important;overflow-wrap:anywhere;}
+  .stApp h2 {font-size:1.3rem!important;overflow-wrap:anywhere;}
+  .stApp h3 {font-size:1.13rem!important;overflow-wrap:anywhere;}
+  .stApp [data-testid="stHorizontalBlock"] {flex-wrap:wrap!important;gap:12px!important;}
+  .stApp [data-testid="column"] {min-width:min(100%,260px)!important;flex:1 1 100%!important;width:100%!important;}
+  .resource-grid {grid-template-columns:1fr!important;}
+  .stApp [data-testid="stButton"] button,
+  .stApp [data-testid="stFormSubmitButton"] button {min-height:46px;}
+  .stApp [data-testid="stRadio"] label {min-height:40px;}
+  .stApp [data-testid="stTabs"] [role="tablist"] {overflow-x:auto;max-width:100%;}
+  .stApp [data-testid="stTabs"] button[role="tab"] {white-space:nowrap;}
+  .stApp [data-testid="stMetric"] {min-width:0;}
+}
+</style>""", unsafe_allow_html=True)
 
 # Golden yellow: override Streamlit's theme variables AND BaseWeb slider components.
 st.markdown("""<style>
