@@ -1,5 +1,5 @@
 """ResponderPulse integrated capstone prototype.
-Run: python -m streamlit run app.py
+Run: python -m streamlit run ResponderPulse_Public_Test_Mobile_Friendly.py
 Use synthetic data only. This is not a production health or employment system.
 """
 import csv
