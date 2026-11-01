@@ -1,54 +1,56 @@
-# ResponderPulse-Public-Demo
+# ResponderPulse – First Responder Wellness Check-In Tool
 
-Public demonstration of ResponderPulse, a first responder wellness check-in prototype. Fictional test data only.
+## Project Overview
 
-## Public Demonstration
+ResponderPulse is a wellness check-in application developed as part of my AI and Robotics capstone project at Houston City College. The application was designed to help police officers and other first responders monitor their wellness, recognize general patterns, and access supportive resources.
+
+The application is a proof of concept intended for educational and demonstration purposes.
+
+## Key Features
+
+- Daily wellness check-ins
+- Personalized wellness results and supportive messages
+- Wellness activities and support resources
+- Wellness coordinator overview
+- Two selectable application themes
+- Mobile-friendly navigation
+- Presentation demonstration page
+
+## Technologies Used
+
+- Python
+- Streamlit
+- Flask and Google Colab for earlier integration testing
+- GitHub for source code management
+- Streamlit Community Cloud for public deployment
+
+## Live Application
 
 https://responderpulse-demo.streamlit.app
 
-The public demonstration can be accessed through a web browser on a laptop, desktop computer, tablet, or smartphone.
+## How to Run the Application
 
-## Requirements
+1. Download or clone this GitHub repository.
+2. Install Python and the packages listed in `requirements.txt`.
+3. Open a terminal in the project folder.
+4. Run the Streamlit application using the appropriate Python filename:
 
-- Python 3.10 or newer (recommended; clean-install compatibility not yet verified)
-- Internet connection for downloading dependencies
-- Streamlit
-- Requests
+   `python -m streamlit run app.py`
 
-## Installation Instructions
+5. Open the local address displayed in the terminal to access the application.
 
-1. Download the repository from GitHub using **Code → Download ZIP**.
-2. Extract the ZIP file to a folder on your computer.
-3. Open Command Prompt or a terminal in that folder.
-4. Install the required Python libraries:
+**Note:** The command above assumes the main application file is named `app.py`. Use the actual filename if it is different.
 
-   `python -m pip install -r requirements.txt`
+## Privacy and Safety
 
-5. Start the application:
+ResponderPulse is not a medical diagnostic tool and does not make fitness-for-duty, disciplinary, or employment decisions. The public demonstration uses session-based information and is not intended to collect or permanently store actual employee wellness records. Any future workplace implementation would require additional privacy protections, security controls, and human oversight.
 
-   `python -m streamlit run ResponderPulse_Public_Test_Safe.py`
+## Project Status
 
-6. Open the local address displayed in the terminal, usually `http://localhost:8501`.
+The working proof of concept has been developed and deployed for demonstration. Additional security, privacy, reliability, and organizational review would be required before real-world use.
 
-## Using ResponderPulse
+## Developer
 
-1. Open Home / Your Profile.
-2. Navigate to Wellness Check-In.
-3. Enter fictional wellness ratings.
-4. Submit the check-in.
-5. Open My Results to review the feedback.
-6. Explore the Wellness Toolkit, Support Resources, Coordinator Overview, and Presentation Demo.
-
-## Important Limitations
-
-ResponderPulse is a student prototype for demonstration and educational purposes.
-
-The public version uses fictional information and keeps check-in records in Streamlit session state rather than permanently saving historical CSV records.
-
-The public demonstration does not transmit check-in responses to the earlier Google Colab API.
-
-ResponderPulse does not provide medical diagnoses or make fitness-for-duty, disciplinary, or employment decisions.
-
-## Testing Status
-
-The public demonstration has been tested through browser-based use on desktop and mobile devices. A separate clean-environment installation test is still pending.
+Brandie Griffin  
+ITAI 4376 – AI Controls for Robotics  
+Houston City College
